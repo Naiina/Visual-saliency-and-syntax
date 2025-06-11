@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from object_detection import prop_of_detected_w_are_mentionned
 from matplotlib.lines import Line2D
 import numpy as np
 
@@ -299,13 +298,13 @@ def reshape_df_for_heatmap(df,metric="size",log=True):
         max_val = 3.5
 
     if log:
-        bins = np.logspace(np.log10(min_val), np.log10(max_val), 19)  
+        bins = np.logspace(np.log10(min_val), np.log10(max_val), 10)  
     else:
-        bins = np.linspace(min_val, max_val, 19)
+        bins = np.linspace(min_val, max_val, 10)
     print(max_val,bins)
     df[metric+'_bin'] = pd.cut(df[metric], bins=bins)
     grouped = (
-        df.groupby(['label', metric+'_bin'])['mentionned(%)']
+        df.groupby(['s_categ', metric+'_bin'])['mentionned(%)']
         .mean()
         .reset_index()
         #.rename(columns={'mentionned(%)': 'mentionned(%)'})
@@ -321,7 +320,7 @@ def plot_heatmap_prop_mentionned(csv_file,metric,log=False):
 
     df = (
         df
-        .pivot(index=metric+'_bin', columns="label", values="mentionned(%)").iloc[::-1]
+        .pivot(index=metric+'_bin', columns="s_categ", values="mentionned(%)").iloc[::-1]
     )
     plt.figure(figsize=(10, 6))
     ax = sns.heatmap(df, annot=True, linewidths=.5,cmap ="coolwarm" )
@@ -330,3 +329,4 @@ def plot_heatmap_prop_mentionned(csv_file,metric,log=False):
     plt.legend(title="Label")
     plt.tight_layout()
     plt.show()
+
