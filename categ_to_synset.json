@@ -1,0 +1,511 @@
+{
+    "person": {
+        "l_syn": [
+            "person.n.01"
+        ],
+        "exeptions": []
+    },
+    "bicycle": {
+        "l_syn": [
+            "bicycle.n.01"
+        ],
+        "exeptions": []
+    },
+    "car": {
+        "l_syn": [
+            "car.n.01"
+        ],
+        "exeptions": []
+    },
+    "motorcycle": {
+        "l_syn": [
+            "motorcycle.n.01"
+        ],
+        "exeptions": []
+    },
+    "airplane": {
+        "l_syn": [
+            "airplane.n.01"
+        ],
+        "exeptions": []
+    },
+    "bus": {
+        "l_syn": [
+            "bus.n.01"
+        ],
+        "exeptions": []
+    },
+    "train": {
+        "l_syn": [
+            "train.n.01"
+        ],
+        "exeptions": []
+    },
+    "truck": {
+        "l_syn": [
+            "truck.n.01"
+        ],
+        "exeptions": []
+    },
+    "boat": {
+        "l_syn": [
+            "boat.n.01"
+        ],
+        "exeptions": []
+    },
+    "traffic light": {
+        "l_syn": [
+            "traffic_light.n.01"
+        ],
+        "exeptions": []
+    },
+    "fire hydrant": {
+        "l_syn": [
+            "fireplug.n.01"
+        ],
+        "exeptions": []
+    },
+    "parking meter": {
+        "l_syn": [
+            "parking_meter.n.01"
+        ],
+        "exeptions": []
+    },
+    "bench": {
+        "l_syn": [
+            "bench.n.01"
+        ],
+        "exeptions": []
+    },
+    "bird": {
+        "l_syn": [
+            "bird.n.01"
+        ],
+        "exeptions": []
+    },
+    "cat": {
+        "l_syn": [
+            "cat.n.01"
+        ],
+        "exeptions": []
+    },
+    "dog": {
+        "l_syn": [
+            "dog.n.01"
+        ],
+        "exeptions": []
+    },
+    "horse": {
+        "l_syn": [
+            "horse.n.01"
+        ],
+        "exeptions": []
+    },
+    "sheep": {
+        "l_syn": [
+            "sheep.n.01"
+        ],
+        "exeptions": []
+    },
+    "cow": {
+        "l_syn": [
+            "cow.n.01",
+            "cow.n.02"
+        ],
+        "exeptions": []
+    },
+    "elephant": {
+        "l_syn": [
+            "elephant.n.01"
+        ],
+        "exeptions": []
+    },
+    "bear": {
+        "l_syn": [
+            "bear.n.01"
+        ],
+        "exeptions": []
+    },
+    "zebra": {
+        "l_syn": [
+            "zebra.n.01"
+        ],
+        "exeptions": []
+    },
+    "giraffe": {
+        "l_syn": [
+            "giraffe.n.01"
+        ],
+        "exeptions": []
+    },
+    "backpack": {
+        "l_syn": [
+            "backpack.n.01"
+        ],
+        "exeptions": []
+    },
+    "umbrella": {
+        "l_syn": [
+            "umbrella.n.01"
+        ],
+        "exeptions": []
+    },
+    "handbag": {
+        "l_syn": [
+            "bag.n.04"
+        ],
+        "exeptions": []
+    },
+    "tie": {
+        "l_syn": [
+            "necktie.n.01"
+        ],
+        "exeptions": []
+    },
+    "suitcase": {
+        "l_syn": [
+            "bag.n.06"
+        ],
+        "exeptions": []
+    },
+    "frisbee": {
+        "l_syn": [
+            "frisbee.n.01"
+        ],
+        "exeptions": []
+    },
+    "skis": {
+        "l_syn": [
+            "ski.n.01"
+        ],
+        "exeptions": []
+    },
+    "snowboard": {
+        "l_syn": [
+            "snowboard.n.01"
+        ],
+        "exeptions": []
+    },
+    "kite": {
+        "l_syn": [
+            "kite.n.03"
+        ],
+        "exeptions": []
+    },
+    "baseball bat": {
+        "l_syn": [
+            "baseball_bat.n.01"
+        ],
+        "exeptions": []
+    },
+    "baseball glove": {
+        "l_syn": [
+            "baseball_glove.n.01",
+            "glove.n.02"
+        ],
+        "exeptions": []
+    },
+    "skateboard": {
+        "l_syn": [
+            "skateboard.n.01"
+        ],
+        "exeptions": [
+            "board"
+        ]
+    },
+    "surfboard": {
+        "l_syn": [
+            "surfboard.n.01"
+        ],
+        "exeptions": [
+            "board"
+        ]
+    },
+    "tennis racket": {
+        "l_syn": [
+            "tennis_racket.n.01",
+            "racket.n.04"
+        ],
+        "exeptions": []
+    },
+    "bottle": {
+        "l_syn": [
+            "bottle.n.01"
+        ],
+        "exeptions": []
+    },
+    "cup": {
+        "l_syn": [
+            "cup.n.01"
+        ],
+        "exeptions": []
+    },
+    "fork": {
+        "l_syn": [
+            "fork.n.01"
+        ],
+        "exeptions": []
+    },
+    "knife": {
+        "l_syn": [
+            "knife.n.01",
+            "knife.n.02"
+        ],
+        "exeptions": []
+    },
+    "spoon": {
+        "l_syn": [
+            "spoon.n.01"
+        ],
+        "exeptions": []
+    },
+    "bowl": {
+        "l_syn": [
+            "bowl.n.01",
+            "bowl.n.03"
+        ],
+        "exeptions": []
+    },
+    "banana": {
+        "l_syn": [
+            "banana.n.02"
+        ],
+        "exeptions": []
+    },
+    "apple": {
+        "l_syn": [
+            "apple.n.01"
+        ],
+        "exeptions": []
+    },
+    "sandwich": {
+        "l_syn": [
+            "sandwich.n.01"
+        ],
+        "exeptions": []
+    },
+    "orange": {
+        "l_syn": [
+            "orange.n.01"
+        ],
+        "exeptions": []
+    },
+    "broccoli": {
+        "l_syn": [
+            "broccoli.n.01"
+        ],
+        "exeptions": []
+    },
+    "carrot": {
+        "l_syn": [
+            "carrot.n.01",
+            "carrot.n.03"
+        ],
+        "exeptions": []
+    },
+    "hot dog": {
+        "l_syn": [
+            "hotdog.n.02",
+            "frank.n.02"
+        ],
+        "exeptions": []
+    },
+    "pizza": {
+        "l_syn": [
+            "pizza.n.01"
+        ],
+        "exeptions": []
+    },
+    "donut": {
+        "l_syn": [
+            "doughnut.n.02"
+        ],
+        "exeptions": []
+    },
+    "cake": {
+        "l_syn": [
+            "cake.n.03"
+        ],
+        "exeptions": []
+    },
+    "chair": {
+        "l_syn": [
+            "chair.n.01"
+        ],
+        "exeptions": []
+    },
+    "couch": {
+        "l_syn": [
+            "sofa.n.01"
+        ],
+        "exeptions": []
+    },
+    "bed": {
+        "l_syn": [
+            "bed.n.01"
+        ],
+        "exeptions": []
+    },
+    "dining table": {
+        "l_syn": [
+            "dining_table.n.01",
+            "table.n.02",
+            "table.n.03"
+        ],
+        "exeptions": []
+    },
+    "toilet": {
+        "l_syn": [
+            "toilet.n.02"
+        ],
+        "exeptions": []
+    },
+    "tv": {
+        "l_syn": [
+            "television_receiver.n.01"
+        ],
+        "exeptions": []
+    },
+    "laptop": {
+        "l_syn": [
+            "laptop.n.01"
+        ],
+        "exeptions": []
+    },
+    "mouse": {
+        "l_syn": [
+            "mouse.n.04"
+        ],
+        "exeptions": []
+    },
+    "remote": {
+        "l_syn": [
+            "remote_control.n.01"
+        ],
+        "exeptions": []
+    },
+    "keyboard": {
+        "l_syn": [
+            "keyboard.n.01"
+        ],
+        "exeptions": []
+    },
+    "microwave": {
+        "l_syn": [
+            "microwave.n.02"
+        ],
+        "exeptions": []
+    },
+    "oven": {
+        "l_syn": [
+            "oven.n.01"
+        ],
+        "exeptions": []
+    },
+    "toaster": {
+        "l_syn": [
+            "toaster.n.02"
+        ],
+        "exeptions": []
+    },
+    "sink": {
+        "l_syn": [
+            "sink.n.01"
+        ],
+        "exeptions": []
+    },
+    "refrigerator": {
+        "l_syn": [
+            "refrigerator.n.01"
+        ],
+        "exeptions": []
+    },
+    "book": {
+        "l_syn": [
+            "book.n.02"
+        ],
+        "exeptions": []
+    },
+    "clock": {
+        "l_syn": [
+            "clock.n.01"
+        ],
+        "exeptions": []
+    },
+    "vase": {
+        "l_syn": [
+            "vase.n.01"
+        ],
+        "exeptions": []
+    },
+    "scissors": {
+        "l_syn": [
+            "scissors.n.01"
+        ],
+        "exeptions": []
+    },
+    "teddy bear": {
+        "l_syn": [
+            "teddy.n.01"
+        ],
+        "exeptions": []
+    },
+    "hair drier": {
+        "l_syn": [
+            "hand_blower.n.01"
+        ],
+        "exeptions": []
+    },
+    "toothbrush": {
+        "l_syn": [
+            "toothbrush.n.01"
+        ],
+        "exeptions": []
+    },
+    "stop sign": {
+        "l_syn": [
+            "sign.n.02"
+        ],
+        "exeptions": [
+            "stop_sign",
+            "stop_signs"
+        ]
+    },
+    "sports ball": {
+        "l_syn": [
+            "ball.n.01",
+            "ball.n.06"
+        ],
+        "exeptions": [
+            "sports_ball",
+            "sports_balls"
+        ]
+    },
+    "wine glass": {
+        "l_syn": [
+            "glass.n.02"
+        ],
+        "exeptions": [
+            "wine_glass",
+            "wine_glasses"
+        ]
+    },
+    "potted plant": {
+        "l_syn": [
+            "plant.n.02"
+        ],
+        "exeptions": [
+            "potted_plant",
+            "potted_plants"
+        ]
+    },
+    "cell phone": {
+        "l_syn": [
+            "cellular_telephone.n.01",
+            "telephone.n.01"
+        ],
+        "exeptions": [
+            "mobile"
+        ]
+    }
+}

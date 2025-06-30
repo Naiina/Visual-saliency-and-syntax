@@ -5,17 +5,13 @@ from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 from collections import defaultdict
 import pandas as pd
-from wsd_pipeline import wsd_llm
-from nltk.tokenize import MWETokenizer, word_tokenize
-from pycocotools.coco import COCO
+#from wsd_without_pipe import wsd_llm
+from nltk.tokenize import MWETokenizer
 import numpy as np
 import skimage.io as io
 import matplotlib.pyplot as plt
-import pylab
 import os
 import matplotlib.image as mpimg
-import pycocotools._mask as _mask
-from PIL import Image
 from nltk.corpus import wordnet as wn
 import pandas as pd
 from depth_computation import get_depth
@@ -46,9 +42,11 @@ def identify_nouns_pos_and_synsets(sentence,wsd=False,pipe=None):
         if tag in ('NN', 'NNS'):
             order+=1
             if wsd:
-                syn = wsd_llm(word, sentence,pipe)
+                #syn = wsd_llm(word, sentence,pipe)
+                syn = None
             else:
                 syn = wn.synsets(word, 'n')[0]
+            print(word,tag,syn,syn.definition())
             if syn not in noun_pos.keys(): #consider only the first occurence of a synset
                 noun_synsets[word] = syn
                 noun_pos[syn]=(i+1)
@@ -59,7 +57,7 @@ def identify_nouns_pos_and_synsets(sentence,wsd=False,pipe=None):
     return noun_synsets, noun_pos, noun_order, noun_pos_rel,noun_order_rel
 
 
-def get_synsets(sentence,wsd=False,pipe=None):
+def get_synsets(sentence,wsd=False,tok=None,model=None,device="cuda"):
 
     tokens = word_tokenize(sentence)
     tagged = pos_tag(tokens)
@@ -69,7 +67,8 @@ def get_synsets(sentence,wsd=False,pipe=None):
     for i,(word, tag) in enumerate(tagged):
         if tag in ('NN', 'NNS'):
             if wsd:
-                syn = wsd_llm(word, sentence,pipe)
+                #syn = wsd_llm(word, sentence,tok,model,device)
+                syn = None
                 synsets.append(syn)
             else:
                 
@@ -79,7 +78,7 @@ def get_synsets(sentence,wsd=False,pipe=None):
         
     return list(set(synsets))
 
-mwe_tokenizer = MWETokenizer([('hot', 'dog'), ('ice', 'cream')], separator='_')
+#mwe_tokenizer = MWETokenizer([('hot', 'dog'), ('ice', 'cream')], separator='_')
 
 
 
@@ -174,13 +173,13 @@ def get_masks_and_box(coco,categ,img):
     return l_masks,l_box
         
 
-def get_normalised_size_and_pos_categ(img,categ,coco):
+def get_normalised_size_and_pos_categ(img,categ,coco,anns):
     #return sum of areas and min distance to center
     h,w = img["height"],img["width"]
     im_size = h*w
-    catIds = coco.getCatIds(catNms=categ)
-    annIds = coco.getAnnIds(imgIds=img['id'], catIds=catIds, iscrowd=None)
-    anns = coco.loadAnns(annIds)
+    #catIds = coco.getCatIds(catNms=categ)
+    #annIds = coco.getAnnIds(imgIds=img['id'], catIds=catIds, iscrowd=None)
+    #anns = coco.loadAnns(annIds)
     area = 0
     nb = 0
     is_crowd = 0
@@ -214,6 +213,27 @@ def normalized_center_distance(bbox, image_size):
     normalized_distance = distance / image_diagonal
     return normalized_distance
 
+
+def get_dist_to_h(img,l_anns,anns):
+    print(anns)
+    exit()
+    x_min, y_min, x_len, y_len = 1,2,3,4
+    image_width, image_height = 1,2
+    bbox_center_x = x_min + x_len / 2
+    bbox_center_y = y_min + y_len / 2
+    image_center_x = image_width / 2
+    image_center_y = image_height / 2
+    distance = math.sqrt((bbox_center_x - image_center_x)**2 + (bbox_center_y - image_center_y)**2)
+    image_diagonal = math.sqrt(image_width**2 + image_height**2)
+    normalized_distance = distance / image_diagonal
+    return normalized_distance
+
+def get_human_box(coco,img):
+    annIds = coco.getAnnIds(imgIds=img['id'], catIds=[1], iscrowd=0)
+    anns = coco.loadAnns(annIds)
+    for ann in anns:
+        print(ann['bbox'])
+    exit()
 
 
 def mean_masked_saliency(img,img_array,elem,coco,imgDir,metric,sf =None,midas_transform=None,midas_model=None,plot_fig = False):
@@ -270,6 +290,9 @@ def get_dict_id_to_name(coco):
     cats = coco.loadCats(coco.getCatIds())
     return {cat["id"]:cat["name"] for cat in cats}
 
+
+
+
 def get_dict_supercateg_to_categ(coco):
     cats = coco.loadCats(coco.getCatIds())
     d = defaultdict(list)
@@ -288,11 +311,13 @@ def get_annot_categ(img,coco):
     annIds = coco.getAnnIds(imgIds=img['id'], catIds=catIds, iscrowd=None)
     anns = coco.loadAnns(annIds)
     l_categ = []
+    l_anns = []
     for ann in anns:
         cat_id = ann["category_id"]
         categ_name = id_to_name[cat_id]
         l_categ.append(categ_name)
-    return l_categ
+        l_anns.append(ann)
+    return l_categ,l_anns
 
              
 def hoi_interaction(anns,x_pvic_min, y_pvic_min, x_pvic_max, y_pvic_max,img):
@@ -341,3 +366,113 @@ def convert_loc_file_into_dict(loc_n_jsonl):
             data = json.loads(line)
             d[data["image_id"]].append(data["caption"]) 
     return d
+
+
+def categ_is_mentioned(syn_categ,l_hyp_categ,l_syn_caption):
+    for syn_caption_name in l_syn_caption:
+        syn_caption = wn.synset(syn_caption_name)
+        l_hyp_caption = syn_caption.hypernyms()
+        #categ is in hyperpath of an elem in the caption
+        for hyp_caption in l_hyp_caption:
+            if syn_categ in hyp_caption:
+                return True
+        #
+        for hyp_categ in l_hyp_categ:
+            if syn_caption in hyp_categ:
+                return True
+        print("deal with special case")
+        return False
+    
+
+def get_hyp_and_syn_set(l_syn_name):
+    l_hyp = []
+    l_syn = []
+    for syn_name in l_syn_name:
+        syn = wn.synset(syn_name)
+        l_syn.append(syn)
+        for hyp_path in syn.hypernym_paths():
+          for hyp in hyp_path:
+              l_hyp.append(hyp)
+
+    return set(l_syn), set(l_hyp)
+
+
+
+
+def prop_mentioned(l_5_caption_syn,l_syn_categ,l_categ_exption):
+    #l_caption_syn: list of [caption, l_nouns, l_syn_names]
+    #l_categ_syn: list of syn NB: on categ can have several corresponding synsets
+    #l_categ_exeption: catch two words categ which are not recognised by wordnet
+    is_ment = []
+    
+    for caption,l_nouns,l_syn_caption in l_5_caption_syn:
+        set_syn_caption,set_hyp_caption = get_hyp_and_syn_set(l_syn_caption)
+        set_syn_categ,set_hyp_categ = get_hyp_and_syn_set(l_syn_categ)
+        if set_syn_caption & set_hyp_categ:
+            is_ment.append(1)
+        elif set_syn_categ & set_hyp_caption:
+            is_ment.append(1)
+        elif set(l_categ_exption) & set(l_nouns):
+            is_ment.append(1)
+        else:
+            is_ment.append(0)
+    return np.mean(np.array(is_ment))
+        
+
+def get_deprel(caption,noun,nlp):
+    doc = nlp(caption)
+    for i, sent in enumerate(doc.sentences):
+        for token in sent.words:
+            if token.text == noun:
+                head_n = token.head
+                deprel = token.deprel
+                if deprel == "conj":
+                    for dep in sent.words:      
+                       if dep.id == head_n:
+                           deprel = dep.deprel
+                           head_n = dep.head
+                           break
+                if deprel == "nsubj":
+                    l_dep_deprel = [dep.deprel for dep in sent.words if dep.head == head_n]
+                    if "obj" in l_dep_deprel:
+                        return "nsubj:t"
+                    else:
+                        return "nsubj:i"
+                    
+                return deprel
+
+
+
+def rank_and_deprel_mentioned(l_5_caption_syn,l_syn_categ,l_categ_exption,nlp):
+    #l_caption_syn: list of [caption, l_nouns, l_syn_names]
+    #l_categ_syn: list of syn NB: on categ can have several corresponding synsets
+    #l_categ_exeption: catch two words categ which are not recognised by wordnet
+
+    #subj:i and subj:t for transitive and intransitive subjects of active sentences. For conj, we consider the deprel of the head of the conj
+    l_rank = []
+    l_deprel = []
+    
+    for caption,l_nouns,l_syn_caption in l_5_caption_syn:
+        mem_rank = -1
+        mem_deprel = "none"
+        filtered = [(noun, syn) for noun, syn in zip(l_nouns, l_syn_caption) if syn != "picture.n.01"]
+        l_nouns, l_syn_caption = zip(*filtered) if filtered else ([], [])
+        l_nouns = list(l_nouns)
+        l_syn_caption = list(l_syn_caption)
+        for rank,(noun,noun_syn) in enumerate(zip(l_nouns,l_syn_caption)):
+            
+            set_syn_caption,set_hyp_caption = get_hyp_and_syn_set([noun_syn])
+            set_syn_categ,set_hyp_categ = get_hyp_and_syn_set(l_syn_categ)
+            if set_syn_caption & set_hyp_categ or set_syn_categ & set_hyp_caption or set(l_categ_exption) & set(l_nouns):
+                mem_rank = rank
+                mem_deprel = get_deprel(caption,noun,nlp)
+                break
+        l_rank.append(mem_rank)
+        l_deprel.append(mem_deprel)
+        
+    return l_rank,l_deprel
+
+
+
+    
+
