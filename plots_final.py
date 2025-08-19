@@ -322,7 +322,7 @@ def main(to_plot):
     if to_plot == "deprel":
         df_coco = pd.read_csv('final results/coco_deprel_rank_no_hoi_coco_output.csv')
         #df_coco = df_coco[(df_coco['Distance to center'] >= 0.2) & (df_coco['Distance to center'] <= 0.3)]
-        l_feats = ["Distance to center","Size"]#,"Colour local contrast","Depth",
+        l_feats = ["Size"]#["Distance to center","Size",]#,"Colour local contrast","Depth",
                    #"Relative depth", "Colour saliency"]
         #df_coco['distance_times_size'] = (1-df_coco['Distance to center']) * np.log(df_coco['Size'])
         for feat in l_feats:
