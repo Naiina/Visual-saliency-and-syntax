@@ -1,7 +1,8 @@
 ## Data to download
 - [MS COCO pictures](https://cocodataset.org/#download)
 - [Localised narratives captions](https://google.github.io/localized-narratives/)
-Uses stanza form nltk  for parsing captions. For each noun, gemma-3-4b-it is used to extract the right sysnset in context
+
+We use stanza form nltk  for parsing captions. For each noun, gemma-3-4b-it is used to extract the right sysnset in context
  
 ## Datafiles
 
